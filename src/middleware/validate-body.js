@@ -1,8 +1,8 @@
 const { validationResult } = require("express-validator");
-const { ErrorHandler } = require("./utils")
+const { ErrorHandler } = require("../utils/errors")
 const { STATUS_CODES } = require("../constants")
 
-const validateBody = (req, res, next) => {
+const handleValidateErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new ErrorHandler(STATUS_CODES["UNPROCESSABLE_ENTITY"], errors.array());
@@ -11,5 +11,5 @@ const validateBody = (req, res, next) => {
 };
 
 module.exports = {
-  validateBody
+    handleValidateErrors
 };

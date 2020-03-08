@@ -16,7 +16,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "OK"
                     }
                 }
             },
@@ -30,7 +30,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/data"
                         }
@@ -105,15 +105,22 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Success",
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/data"
                         }
                     },
                     "409": {
-                        "description": "A book with the same title exist",
+                        "description": "A book with the same title exists",
                         "schema": {
-                                "$ref": "#/definitions/error"
+                                "$ref": "#/definitions/errorNotFound"
+
+                        }
+                    },
+                    "422": {
+                        "description": "Parameters validation error(s)",
+                        "schema": {
+                            "$ref": "#/definitions/errorValidation"
 
                         }
                     }
@@ -128,7 +135,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/data"
                         }
@@ -136,7 +143,7 @@
                     "404": {
                         "description": "Book not found",
                         "schema": {
-                            "$ref": "#/definitions/error"
+                            "$ref": "#/definitions/errorNotFound"
 
                         }
                     }
@@ -207,7 +214,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/data"
                         }
@@ -215,12 +222,16 @@
                     "404": {
                         "description": "Book not found",
                         "schema": {
-                            "$ref": "#/definitions/error"
+                            "$ref": "#/definitions/errorNotFound"
 
                         }
                     },
                     "422": {
-                        "description": "Parameters validation error(s)"
+                        "description": "Parameters validation error(s)",
+                        "schema": {
+                            "$ref": "#/definitions/errorValidation"
+
+                        }
                     }
                 }
             },
@@ -231,7 +242,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/data"
                         }
@@ -239,7 +250,7 @@
                     "404": {
                         "description": "Book not found",
                         "schema": {
-                            "$ref": "#/definitions/error"
+                            "$ref": "#/definitions/errorNotFound"
 
                         }
                     }
@@ -310,7 +321,7 @@
                 }
             }
         },
-        "error": {
+        "errorNotFound": {
             "type": "object",
             "description": "Book response",
             "properties": {
@@ -319,9 +330,28 @@
                     "items": {
                         "type": "object"
                     },
-                    "example": {
+                    "example": [{
                         "msg": "Not found"
-                    }
+                    }]
+                }
+            }
+        },
+        "errorValidation": {
+            "type": "object",
+            "description": "Book response",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "example":
+                        [{
+                            "msg": "Invalid value",
+                            "param": "title",
+                            "location": "body"
+                        }]
+
                 }
             }
         }

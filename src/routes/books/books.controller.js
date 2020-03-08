@@ -3,7 +3,7 @@ const { promisify } = require("util");
 const writeFile = promisify(fs.writeFile);
 const { validationResult } = require("express-validator");
 
-const { ErrorHandler } = require("../../middleware/utils")
+const { ErrorHandler } = require("../../utils/errors")
 const { getErrorMessage } = require('./utils')
 const { STATUS_CODES } = require('../../constants')
 const booksData = require("../../../db/books.json");
